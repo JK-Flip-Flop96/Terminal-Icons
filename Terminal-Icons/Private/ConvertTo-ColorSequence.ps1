@@ -16,6 +16,11 @@ function ConvertTo-ColorSequence {
         if ($ColorData.Types.Directories['junction']) {
             $cs.Types.Directories['junction'] = ConvertFrom-RGBColor -RGB $ColorData.Types.Directories['junction']
         }
+        $cs.Types.Directories[''] = if ($ColorData.Types.Directories['']) {
+            ConvertFrom-RGBColor -RGB $ColorData.Types.Directories['']
+        }else{
+            $colorReset
+        }
         $ColorData.Types.Directories.WellKnown.GetEnumerator().ForEach({
             $cs.Types.Directories[$_.Name] = ConvertFrom-RGBColor -RGB $_.Value
         })
@@ -26,6 +31,11 @@ function ConvertTo-ColorSequence {
         }
         if ($ColorData.Types.Files['junction']) {
             $cs.Types.Files['junction'] = ConvertFrom-RGBColor -RGB $ColorData.Types.Files['junction']
+        }
+        $cs.Types.Files[''] = if ($ColorData.Types.Files['']) {
+            ConvertFrom-RGBColor -RGB $ColorData.Types.Files['']
+        }else{
+            $colorReset
         }
         $ColorData.Types.Files.WellKnown.GetEnumerator().ForEach({
             $cs.Types.Files.WellKnown[$_.Name] = ConvertFrom-RGBColor -RGB $_.Value

@@ -39,7 +39,7 @@ function Resolve-Icon {
                 if ($colors) {
                     $colorSeq = $colors.Types.($type)['junction']
                 } else {
-                    $colorSet = $script:colorReset
+                    $colorSeq = $script:colorReset
                 }
                 $displayInfo['Target'] = ' ' + $glyphs['nf-md-arrow_right_thick'] + ' ' + $FileInfo.Target
                 break
@@ -53,7 +53,7 @@ function Resolve-Icon {
                 if ($colors) {
                     $colorSeq = $colors.Types.($type)['symlink']
                 } else {
-                    $colorSet = $script:colorReset
+                    $colorSeq = $script:colorReset
                 }
                 $displayInfo['Target'] = ' ' + $glyphs['nf-md-arrow_right_thick'] + ' ' + $FileInfo.Target
                 break
@@ -61,7 +61,7 @@ function Resolve-Icon {
                 if ($icons) {
                     # Determine normal directory icon and color
                     $iconName = $icons.Types.$type.WellKnown[$FileInfo.Name]
-                    if (-not $iconName) {
+                    if ($null -eq $iconName) {
                         if ($FileInfo.PSIsContainer) {
                             $iconName = $icons.Types.$type[$FileInfo.Name]
                         } elseif ($icons.Types.$type.ContainsKey($FileInfo.Extension)) {
@@ -75,12 +75,12 @@ function Resolve-Icon {
                                 $iconName = $icons.Types.$type[$fullExtension]
                             }
                         }
-                        if (-not $iconName) {
+                        if ($null -eq $iconName) {
                             $iconName = $icons.Types.$type['']
                         }
 
                         # Fallback if everything has gone horribly wrong
-                        if (-not $iconName) {
+                        if ($null -eq $iconName) {
                             if ($FileInfo.PSIsContainer) {
                                 $iconName = 'nf-oct-file_directory'
                             } else {
@@ -93,7 +93,7 @@ function Resolve-Icon {
                 }
                 if ($colors) {
                     $colorSeq = $colors.Types.$type.WellKnown[$FileInfo.Name]
-                    if (-not $colorSeq) {
+                    if ($null -eq $colorSeq) {
                         if ($FileInfo.PSIsContainer) {
                             $colorSeq = $colors.Types.$type[$FileInfo.Name]
                         } elseif ($colors.Types.$type.ContainsKey($FileInfo.Extension)) {
@@ -107,12 +107,12 @@ function Resolve-Icon {
                                 $colorSeq = $colors.Types.$type[$fullExtension]
                             }
                         }
-                        if (-not $colorSeq) {
+                        if ($null -eq $colorSeq) {
                             $colorSeq = $colors.Types.$type['']
                         }
 
                         # Fallback if everything has gone horribly wrong
-                        if (-not $colorSeq) {
+                        if ($null -eq $colorSeq) {
                             $colorSeq = $script:colorReset
                         }
                     }
